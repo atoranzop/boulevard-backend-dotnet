@@ -1,0 +1,6 @@
+@boulevard_backend_dotnet_HostAddress = http://localhost:5286
+
+GET {{boulevard_backend_dotnet_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
