@@ -131,7 +131,7 @@ public class StoreController : ControllerBase
             return NotFound();
         
         // Obtiene el ID del usuario actual desde el token
-        var userId = Guid.Parse(User.FindFirst("sub")!.Value);
+        var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
         // Verifica si el usuario actual es el propietario de la tienda
         var userStore = await _context.UserStores.FirstOrDefaultAsync(us => us.UserId == userId && us.StoreId == id);
@@ -169,7 +169,7 @@ public class StoreController : ControllerBase
             return NotFound();
 
         // Obtiene el ID del usuario actual desde el token
-        var userId = Guid.Parse(User.FindFirst("sub")!.Value);
+        var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
         // Verifica si el usuario actual es el propietario de la tienda
         var userStore = await _context.UserStores.FirstOrDefaultAsync(us => us.UserId == userId && us.StoreId == id);
@@ -198,7 +198,7 @@ public class StoreController : ControllerBase
             return NotFound();
         
         // Obtiene el ID del usuario actual desde el token
-        var userId = Guid.Parse(User.FindFirst("sub")!.Value);
+        var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
         // Verifica en la petición el rol del usuario a añadir. 
         // Si es administrador o propietario, solo puede añadirlo un propietario
@@ -250,7 +250,7 @@ public class StoreController : ControllerBase
             return NotFound();
         
         // Obtiene el ID del usuario actual desde el token
-        var userId = Guid.Parse(User.FindFirst("sub")!.Value);
+        var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
 
         // Verifica si el trabajador existe en la tienda
