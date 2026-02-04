@@ -5,6 +5,8 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options): base(options) { }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Store> Stores { get; set; }
+    public DbSet<UserStore> UserStores { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,6 +23,23 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<User>()
             .HasIndex(u => u.Username)
-            .IsUnique();        
+            .IsUnique();
+
+        modelBuilder.Entity<Store>()
+            .Property(u => u.Id)
+            .HasDefaultValueSql("uuid_generate_v4()");        
+        
+        modelBuilder.Entity<UserStore>()
+            .HasKey(us => new { us.UserId, us.StoreId });
+        
+        modelBuilder.Entity<UserStore>()
+            .HasOne(us => us.User)
+            .WithMany(u => u.UserStores)
+            .HasForeignKey(us => us.UserId);
+
+        modelBuilder.Entity<UserStore>()
+            .HasOne(us => us.Store)
+            .WithMany(s => s.UserStores)
+            .HasForeignKey(us => us.StoreId);
     }
 }
